@@ -1,16 +1,28 @@
 # Create an S3 bucket
 resource "aws_s3_bucket" "cbz_bucket" {
-  bucket = "cbz-frontend-project-bux" # Replace with a globally unique bucket name
+  bucket = "cbz-frontend-my-project-bux" # Replace with a globally unique bucket name
 
   # Enable static website hosting
-  website {
-    index_document = "index.html"
-    error_document = "error.html"
-  }
+  # website {
+  #   index_document = "index.html"
+  #   error_document = "error.html"
+  # }
 
   tags = {
     Name        = "StaticWebsiteBucket"
     env = "dev"
+  }
+}
+
+resource "aws_s3_bucket_website_configuration" "cbz_bucket" {
+  bucket = aws_s3_bucket.cbz_bucket.id
+
+  index_document {
+    suffix = "index.html"
+  }
+
+  error_document {
+    key = "error.html"
   }
 }
 
@@ -43,6 +55,6 @@ resource "aws_s3_bucket_policy" "static_website_policy" {
 
 # Output the bucket's website endpoint
 output "website_endpoint" {
-  value       = aws_s3_bucket.cbz_bucket.website_endpoint
+  value       = aws_s3_bucket_website_configuration.cbz_bucket.website_endpoint
   description = "The URL to access the static website"
 }
