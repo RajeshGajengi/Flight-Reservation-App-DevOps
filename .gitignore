@@ -1,1 +1,8 @@
 Rajesh(Virginia).pem
+sample.txt
+Terraform/.terraform
+Terraform/.terraform.lock.hcl
+Terraform/terraform.tfstate
+awscli-bundle.zip
+Terraform/terraform.tfstate.backup
+Terraform/.terraform.tfstate.lock.info
